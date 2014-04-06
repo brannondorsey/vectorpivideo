@@ -1,6 +1,7 @@
 #pragma once
 
 #include "ofMain.h"
+#include "TextDisplay.h"
 
 class testApp : public ofBaseApp{
 
@@ -18,6 +19,7 @@ class testApp : public ofBaseApp{
         ofRectangle textBox;
         ofRectangle textBounds;
         ofTrueTypeFont font;
+        TextDisplay textDisplay;
     
 		void setup();
 		void update();
