@@ -6,7 +6,8 @@ class testApp : public ofBaseApp{
 
 	public:
     
-        int textCharIndex;
+        int charIndex;
+        int wordIndex;
         int fontSize;
         float fontHeight;
         bool textFinished;
@@ -15,12 +16,12 @@ class testApp : public ofBaseApp{
         std::string renderedText;
         std::string screenText;
         ofRectangle textBox;
+        ofRectangle textBounds;
         ofTrueTypeFont font;
     
 		void setup();
 		void update();
 		void draw();
-        void resetScreenText();
     
 		void keyPressed(int key);
 		void keyReleased(int key);
