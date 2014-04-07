@@ -20,8 +20,10 @@ public:
     void update();
     void draw();
     void restart(const std::string& text);
-    char next();
+    void next();
     bool isFinished();
+    bool hasScreenText();
+    char getLastScreenChar();
     std::vector<std::string> getWords();
     
 protected:

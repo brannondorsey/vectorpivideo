@@ -27,6 +27,11 @@ void TextDisplay::update(){
 
 void TextDisplay::draw(){
     
+//    ofNoFill();
+//    ofSetColor(0);
+//    ofRect(_textBox);
+//    ofFill();
+    
     ofSetColor(0);
     _font.drawString(_screenText, _textBox.x, _textBox.y + _textBox.height/2 + _fontSize/2);
 }
@@ -44,44 +49,58 @@ void TextDisplay::restart(const std::string& text){
     _words = ofSplitString(_text, " ");
 }
 
-char TextDisplay::next() {
+// this needs to always return the last character that was added
+void TextDisplay::next() {
     
     std::string word = _words[_wordIndex];
+    char character;
+    
     if (word == "") {
         _wordIndex++;
         word = _words[_wordIndex];
     }
     
     if (_charIndex == word.length()){
-        _screenText += " ";
+        character = ' ';
         _charIndex = 0;
         
         if (_wordIndex < _words.size() - 1){
             _wordIndex++;
             word = _words[_wordIndex];
         } else _textFinished = true;
+    } else {
+        
+        character = word[_charIndex];
+        _charIndex++;
     }
     
-    int lastSpace = _screenText.find_last_of(" ");
-    std::string temp = _screenText.substr(0, lastSpace) + " " + word;
+    
+    int lastSpace = _screenText.find_last_of(' ');
+    std::string temp = _screenText.substr(0, lastSpace) + ' ' + word;
+    
     _textBounds = _font.getStringBoundingBox(temp, _textBox.x, _textBox.y);
     
     if (_textBounds.width >= _textBox.width) {
         _screenText = "";
     }
     
-    char character = word[_charIndex];
+//    char character = word[_charIndex];
     
     if (!_textFinished) {
         _screenText += character;
-        _charIndex++;
     }
-    
-    return character;
 }
 
 bool TextDisplay::isFinished(){
     return _textFinished;
+}
+
+bool TextDisplay::hasScreenText(){
+    return _screenText.length() > 0;
+}
+
+char TextDisplay::getLastScreenChar() {
+    return _screenText[_screenText.length() - 1];
 }
 
 std::vector<std::string> TextDisplay::getWords() {

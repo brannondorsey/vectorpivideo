@@ -44,13 +44,13 @@ void Animation::draw(){
     ofPopMatrix();
     
     for (int i = 0; i < _words.size(); i++) {
-        cout<<i<<endl;
         _words[i].draw();
     }
 }
 
 void Animation::addWord(){
     
+        cout<<"added word"<<endl;
         Word lastWord = _words[_words.size() - 1];
         _heading = lastWord.getBeginHeading(_heading);
         

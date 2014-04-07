@@ -18,6 +18,7 @@ void testApp::update(){
     if (textDisplay.isFinished()) {
         textDisplay.restart("I just restarted.");
     }
+    animation.update();
 }
 
 //--------------------------------------------------------------
@@ -26,12 +27,16 @@ void testApp::draw(){
     if (ofGetFrameNum() % 5 == 0 &&
         animation.isReady() &&
         !textDisplay.isFinished()) {
-        cout<<"got here"<<endl;
-        char character = textDisplay.next();
-        if (character == ' ') animation.addWord();
-        else animation.addCharacter(character);
+        textDisplay.next();
         
+        if (textDisplay.hasScreenText()) {
+            char character = textDisplay.getLastScreenChar();
+            cout<<character<<endl;
+            if (character == ' ') animation.addWord();
+            else animation.addCharacter(character);
+        }
     }
+    
     ofPushMatrix();
     ofTranslate(ofGetWidth()/2, ofGetHeight()/2);
     animation.draw();
