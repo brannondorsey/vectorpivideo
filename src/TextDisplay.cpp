@@ -44,7 +44,7 @@ void TextDisplay::restart(const std::string& text){
     _words = ofSplitString(_text, " ");
 }
 
-void TextDisplay::next() {
+char TextDisplay::next() {
     
     std::string word = _words[_wordIndex];
     if (word == "") {
@@ -76,8 +76,14 @@ void TextDisplay::next() {
         _screenText += character;
         _charIndex++;
     }
+    
+    return character;
 }
 
 bool TextDisplay::isFinished(){
     return _textFinished;
+}
+
+std::vector<std::string> TextDisplay::getWords() {
+    return _words;
 }

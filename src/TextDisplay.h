@@ -20,8 +20,9 @@ public:
     void update();
     void draw();
     void restart(const std::string& text);
-    void next();
+    char next();
     bool isFinished();
+    std::vector<std::string> getWords();
     
 protected:
     

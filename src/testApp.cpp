@@ -10,7 +10,6 @@ void testApp::setup(){
     
     ofRectangle textBox(100, ofGetHeight() - 120, ofGetWidth() - 200, 50);
     textDisplay = TextDisplay(text, textBox);
-    
 }
 
 //--------------------------------------------------------------
@@ -25,10 +24,18 @@ void testApp::update(){
 void testApp::draw(){
     
     if (ofGetFrameNum() % 5 == 0 &&
+        animation.isReady() &&
         !textDisplay.isFinished()) {
-        textDisplay.next();
+        cout<<"got here"<<endl;
+        char character = textDisplay.next();
+        if (character == ' ') animation.addWord();
+        else animation.addCharacter(character);
+        
     }
-    
+    ofPushMatrix();
+    ofTranslate(ofGetWidth()/2, ofGetHeight()/2);
+    animation.draw();
+    ofPopMatrix();
     textDisplay.draw();
 }
 

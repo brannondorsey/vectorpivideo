@@ -2,6 +2,8 @@
 
 #include "ofMain.h"
 #include "TextDisplay.h"
+#include "Word.h"
+#include "Animation.h"
 
 class testApp : public ofBaseApp{
 
@@ -20,6 +22,7 @@ class testApp : public ofBaseApp{
         ofRectangle textBounds;
         ofTrueTypeFont font;
         TextDisplay textDisplay;
+        Animation animation;
     
 		void setup();
 		void update();

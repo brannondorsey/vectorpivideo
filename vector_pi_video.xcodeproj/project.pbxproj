@@ -27,6 +27,8 @@
 		E7E077E515D3B63C0020DFD4 /* CoreVideo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E7E077E415D3B63C0020DFD4 /* CoreVideo.framework */; };
 		E7E077E815D3B6510020DFD4 /* QTKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E7E077E715D3B6510020DFD4 /* QTKit.framework */; };
 		E7F985F815E0DEA3003869B5 /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E7F985F515E0DE99003869B5 /* Accelerate.framework */; };
+		F81E520D18F1EA4600507621 /* Word.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F81E520B18F1EA4600507621 /* Word.cpp */; };
+		F81E521018F1EB3600507621 /* Animation.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F81E520F18F1EB3600507621 /* Animation.cpp */; };
 		F869C1E718F10B9B00F2554A /* TextDisplay.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F869C1E618F10B9B00F2554A /* TextDisplay.cpp */; };
 /* End PBXBuildFile section */
 
@@ -85,6 +87,10 @@
 		E7E077E415D3B63C0020DFD4 /* CoreVideo.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreVideo.framework; path = /System/Library/Frameworks/CoreVideo.framework; sourceTree = "<absolute>"; };
 		E7E077E715D3B6510020DFD4 /* QTKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QTKit.framework; path = /System/Library/Frameworks/QTKit.framework; sourceTree = "<absolute>"; };
 		E7F985F515E0DE99003869B5 /* Accelerate.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accelerate.framework; path = /System/Library/Frameworks/Accelerate.framework; sourceTree = "<absolute>"; };
+		F81E520B18F1EA4600507621 /* Word.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Word.cpp; sourceTree = "<group>"; };
+		F81E520C18F1EA4600507621 /* Word.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Word.h; sourceTree = "<group>"; };
+		F81E520E18F1EA6C00507621 /* Animation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Animation.h; sourceTree = "<group>"; };
+		F81E520F18F1EB3600507621 /* Animation.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Animation.cpp; sourceTree = "<group>"; };
 		F869C1E518F10AAF00F2554A /* TextDisplay.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TextDisplay.h; sourceTree = "<group>"; };
 		F869C1E618F10B9B00F2554A /* TextDisplay.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TextDisplay.cpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -190,6 +196,10 @@
 				E4B69E1D0A3A1BDC003C02F2 /* main.cpp */,
 				E4B69E1E0A3A1BDC003C02F2 /* testApp.cpp */,
 				E4B69E1F0A3A1BDC003C02F2 /* testApp.h */,
+				F81E520E18F1EA6C00507621 /* Animation.h */,
+				F81E520F18F1EB3600507621 /* Animation.cpp */,
+				F81E520B18F1EA4600507621 /* Word.cpp */,
+				F81E520C18F1EA4600507621 /* Word.h */,
 				F869C1E518F10AAF00F2554A /* TextDisplay.h */,
 				F869C1E618F10B9B00F2554A /* TextDisplay.cpp */,
 			);
@@ -295,6 +305,8 @@
 				E4B69E200A3A1BDC003C02F2 /* main.cpp in Sources */,
 				E4B69E210A3A1BDC003C02F2 /* testApp.cpp in Sources */,
 				F869C1E718F10B9B00F2554A /* TextDisplay.cpp in Sources */,
+				F81E520D18F1EA4600507621 /* Word.cpp in Sources */,
+				F81E521018F1EB3600507621 /* Animation.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
