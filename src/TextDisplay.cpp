@@ -28,13 +28,14 @@ void TextDisplay::update(){
         _textFinished = true;
     }
     
-    int padding = 10;
-    _backgroundBox = _font.getStringBoundingBox(_screenText, _textBox.x, _boxY);
-    _backgroundBox.setHeight(_textBounds.height);
-    _backgroundBox.x -= padding;
-    _backgroundBox.setWidth(_backgroundBox.width + padding * 2);
-    _backgroundBox.y -= padding;
-    _backgroundBox.setHeight(_backgroundBox.height + padding * 2);
+    int verticalPadding = 3;
+    int horizontalPadding = 10;
+    ofRectangle screenTextBox = _font.getStringBoundingBox(_screenText, _textBox.x, _boxY);
+    _backgroundBox = _textBox;
+    _backgroundBox.y -= verticalPadding;
+    _backgroundBox.x -= horizontalPadding;
+    _backgroundBox.setWidth(screenTextBox.width + horizontalPadding * 2);
+    _backgroundBox.setHeight(_backgroundBox.height + verticalPadding * 2);
 }
 
 void TextDisplay::draw(){
@@ -44,7 +45,7 @@ void TextDisplay::draw(){
 //    ofRect(_textBox);
 //    ofFill();
     
-    ofSetColor(255);
+    ofSetColor(200);
     ofFill();
     ofRect(_backgroundBox);
     
