@@ -10,11 +10,11 @@
 
 TextDisplay::TextDisplay(const std::string& text,
                          const ofRectangle& bound,
-                         const ofColor& highlightColor){
-
-    _highlightColor = highlightColor;
-    _textBox = bound;
-    _fontSize = 24;
+                         const ofColor& highlightColor):
+    _highlightColor(highlightColor),
+    _textBox(bound),
+    _fontSize(24)
+{
     _boxY = _textBox.y + _textBox.height/2 + _fontSize/2;
     _font.loadFont("fonts/Arial.ttf", _fontSize);
     _font.setEncoding(OF_ENCODING_UTF8);

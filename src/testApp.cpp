@@ -8,7 +8,6 @@ void testApp::setup(){
     
     ofBuffer buffer = ofBufferFromFile("texts/gatsby.txt");
     std::string text = buffer.getText();
-    
         
     ofRectangle textBox(100, ofGetHeight() - 120, ofGetWidth() - 200, 50);
     textDisplay = TextDisplay(text, textBox, highlightColor);
@@ -34,7 +33,7 @@ void testApp::update(){
 //--------------------------------------------------------------
 void testApp::draw(){
     
-    if ( // ofGetFrameNum() % 8 == 0 &&
+    if (ofGetFrameNum() % 8 == 0 &&
         animation.isReady() &&
         !textDisplay.isFinished()) {
         textDisplay.next();

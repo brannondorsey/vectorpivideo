@@ -11,20 +11,17 @@
 Animation::Animation(const float& angleIncrement,
                      const std::string& characters,
                      const ofColor& highlightColor,
-                     const int& numWords){
-    
-    _numWords = numWords;
-    _angleIncrement = angleIncrement;
-    _characters = characters;
-    _animating = false;
-    
-    _highlightColor = highlightColor;
-    _speed = 1;
-    _heading = 0;
-    _space = 10;
-    _start = ofVec2f(0, 0);
-    _center = _start;
-}
+                     const int& numWords):
+_numWords(numWords),
+_angleIncrement(angleIncrement),
+_characters(characters),
+_animating(false),
+_highlightColor(highlightColor),
+_speed(1),
+_heading(0),
+_space(10),
+_start(ofVec2f(0, 0)),
+_center(_start){}
 
 void Animation::update(){
     

@@ -20,7 +20,9 @@ _word(word),
 _characters(characters),
 _angleIncrement(angleIncrement),
 _angleInDegrees(0),
-_polyline(ofPolyline())
+_polyline(ofPolyline()),
+_angleSum(rotation),
+_center(start)
 {
     
     for (int i = 0; i < _word.length(); i++) {
@@ -31,10 +33,8 @@ _polyline(ofPolyline())
             _angles.push_back(_angleInDegrees);
         }
     }
-    
-    _angleSum = rotation;
+
     _polyline.addVertex(start);
-    _center = start;
     
     for (int i = 0; i < _angles.size(); i++) {
         _angleSum += _angles[i];
