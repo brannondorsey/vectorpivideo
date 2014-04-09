@@ -25,8 +25,9 @@ public:
     float getBeginHeading(const float& rotation);
     float getEndHeading(const float& rotation);
     ofVec2f getFirstVertex();
-    ofRectangle getBoundingBox();
     ofVec2f getLastVertex();
+    ofRectangle getBoundingBox();
+    
     
 protected:
     

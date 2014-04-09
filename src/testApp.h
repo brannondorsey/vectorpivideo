@@ -9,18 +9,7 @@ class testApp : public ofBaseApp{
 
 	public:
     
-        int charIndex;
-        int wordIndex;
-        int fontSize;
-        float fontHeight;
-        bool textFinished;
-        std::string text;
-        std::vector<std::string> words;
-        std::string renderedText;
-        std::string screenText;
         ofRectangle textBox;
-        ofRectangle textBounds;
-        ofTrueTypeFont font;
         TextDisplay textDisplay;
         Animation animation;
     

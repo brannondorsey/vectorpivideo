@@ -15,6 +15,7 @@ TextDisplay::TextDisplay(const std::string& text,
     _highlightColor = highlightColor;
     _textBox = bound;
     _fontSize = 24;
+    _boxY = _textBox.y + _textBox.height/2 + _fontSize/2;
     _font.loadFont("fonts/Arial.ttf", _fontSize);
     _font.setEncoding(OF_ENCODING_UTF8);
     restart(text);
@@ -26,6 +27,14 @@ void TextDisplay::update(){
         _charIndex >= _words[_words.size() - 1].length()) {
         _textFinished = true;
     }
+    
+    int padding = 10;
+    _backgroundBox = _font.getStringBoundingBox(_screenText, _textBox.x, _boxY);
+    _backgroundBox.setHeight(_textBounds.height);
+    _backgroundBox.x -= padding;
+    _backgroundBox.setWidth(_backgroundBox.width + padding * 2);
+    _backgroundBox.y -= padding;
+    _backgroundBox.setHeight(_backgroundBox.height + padding * 2);
 }
 
 void TextDisplay::draw(){
@@ -34,32 +43,21 @@ void TextDisplay::draw(){
 //    ofSetColor(0);
 //    ofRect(_textBox);
 //    ofFill();
-        
-    int padding = 10;
-    float boxY = _textBox.y + _textBox.height/2 + _fontSize/2;
-    ofRectangle backgroundBox(_font.getStringBoundingBox(_screenText, _textBox.x, boxY));
-    backgroundBox.setHeight(_textBounds.height);
-    backgroundBox.x -= padding;
-    backgroundBox.setWidth(backgroundBox.width + padding * 2);
-    backgroundBox.y -= padding;
-    backgroundBox.setHeight(backgroundBox.height + padding * 2);
     
     ofSetColor(255);
     ofFill();
-    ofRect(backgroundBox);
-    
-    int lastSpace = _screenText.find_last_of(' ');
-    
+    ofRect(_backgroundBox);
     
     std::string normalText;
     std::string highlightedText;
     
+    int lastSpace = _screenText.find_last_of(' ');
     if (lastSpace != std::string::npos) {
         normalText = _screenText.substr(0, lastSpace) + ' ';
         highlightedText = _screenText.substr(lastSpace, _screenText.length());
         
         ofSetColor(0);
-        _font.drawString(normalText, _textBox.x, boxY);
+        _font.drawString(normalText, _textBox.x, _boxY);
     
     } else {
         normalText = "";
@@ -69,11 +67,11 @@ void TextDisplay::draw(){
     if ((lastSpace != std::string::npos) ||
         (normalText == "")) {
         
-        ofRectangle normalTextBounds = _font.getStringBoundingBox(normalText, _textBox.x, boxY);
-        float boxX = (normalText == "") ? _textBox.x : normalTextBounds.x + normalTextBounds.width;
+        ofRectangle normalTextBounds = _font.getStringBoundingBox(normalText, _textBox.x, _boxY);
+        float boxX = max(_textBox.x, normalTextBounds.x + normalTextBounds.width);
         ofSetColor(_highlightColor);
         
-        _font.drawString(highlightedText, boxX, boxY);
+        _font.drawString(highlightedText, boxX, _boxY);
     }
 
     
@@ -127,8 +125,6 @@ void TextDisplay::next() {
     if (_textBounds.width >= _textBox.width) {
         _screenText = "";
     }
-    
-//    char character = word[_charIndex];
     
     if (!_textFinished) {
         _screenText += character;

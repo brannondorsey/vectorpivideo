@@ -7,7 +7,7 @@ void testApp::setup(){
     ofColor highlightColor(158, 25, 25);
     
     ofBuffer buffer = ofBufferFromFile("texts/gatsby.txt");
-    text = buffer.getText();
+    std::string text = buffer.getText();
     
         
     ofRectangle textBox(100, ofGetHeight() - 120, ofGetWidth() - 200, 50);
@@ -16,7 +16,6 @@ void testApp::setup(){
     buffer = ofBufferFromFile("languages/english.txt");
     std::string characters = buffer.getText();
     float angleIncrement = float(360) / characters.length();
-    // add 1) opacity over time and 2) colored word
     animation = Animation(angleIncrement,
                           characters,
                           highlightColor,
@@ -35,7 +34,7 @@ void testApp::update(){
 //--------------------------------------------------------------
 void testApp::draw(){
     
-    if (ofGetFrameNum() % 8 == 0 &&
+    if ( // ofGetFrameNum() % 8 == 0 &&
         animation.isReady() &&
         !textDisplay.isFinished()) {
         textDisplay.next();

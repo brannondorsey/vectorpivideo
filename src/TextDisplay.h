@@ -34,14 +34,15 @@ protected:
     int _wordIndex;
     int _fontSize;
     float _fontHeight;
+    float _boxY;
     bool _textFinished;
     std::string _text;
     std::vector<std::string> _words;
-    std::string _renderedText;
     std::string _screenText;
     ofColor _highlightColor;
     ofRectangle _textBox;
     ofRectangle _textBounds;
+    ofRectangle _backgroundBox;
     ofTrueTypeFont _font;
     
 };

@@ -22,7 +22,6 @@ Animation::Animation(const float& angleIncrement,
     _speed = 1;
     _heading = 0;
     _space = 10;
-    _lineLength = 24;
     _start = ofVec2f(0, 0);
     _center = _start;
 }
@@ -38,8 +37,6 @@ void Animation::update(){
             _step();
         }
     }
-
-    _currentPoint = _polarToCartesian(ofVec2f(_lineLength, _currentAngle));
 }
 
 void Animation::draw(){
@@ -94,8 +91,4 @@ void Animation::_step(){
 bool Animation::_withinFinalFrameDistance() {
 //    return abs(_targetAngle - _currentAngle) <= _speed;
     return true;
-}
-
-ofVec2f Animation::_polarToCartesian(ofVec2f polar){
-    return ofVec2f(polar.x * cos(ofDegToRad(polar.y)), polar.x * sin(ofDegToRad(polar.y)));
 }

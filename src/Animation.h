@@ -30,7 +30,6 @@ public:
 protected:
     
     bool _animating;
-    int _lineLength;
     int _space;
     int _numWords;
     float _speed;
@@ -45,13 +44,11 @@ protected:
     ofVec2f _start;
     ofVec2f _center;
     ofVec2f _connectionPoint;
-    ofVec2f _currentPoint;
     ofVec2f _offset;
     ofColor _highlightColor;
     
     void _step();
     bool _withinFinalFrameDistance();
-    ofVec2f _polarToCartesian(ofVec2f polar);
 };
 
 #endif
