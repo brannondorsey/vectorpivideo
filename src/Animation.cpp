@@ -18,30 +18,33 @@ Animation::Animation(const float& angleIncrement, const std::string& characters)
     _heading = 0;
     _space = 10;
     _lineLength = 24;
+    _start = ofVec2f(0, 0);
+    _center = _start;
 }
 
 void Animation::update(){
     
     if (_animating) {
         if (_withinFinalFrameDistance()) {
+            cout<<"yes"<<endl;
             _words[_words.size() - 1].addCharacter(_currentCharacter);
             _animating = false;
         } else {
             _animating = true;
             _step();
+            cout<<"no"<<endl;
         }
     }
-    
+
     _currentPoint = _polarToCartesian(ofVec2f(_lineLength, _currentAngle));
 }
 
 void Animation::draw(){
     
-    ofPushMatrix();
-    ofTranslate(_currentPoint);
-    ofVec2f wordsEnd = _polarToCartesian(ofVec2f( - _lineLength, - _currentAngle));
-    ofLine(0, 0, wordsEnd.x, wordsEnd.y);
-    ofPopMatrix();
+    if (_words.size() > 0) {
+        ofVec2f end(_words[_words.size() - 1].getLastVertex());
+        ofTranslate(_start - end);
+    }
     
     for (int i = 0; i < _words.size(); i++) {
         _words[i].draw();
@@ -52,24 +55,22 @@ void Animation::addWord(){
     
         cout<<"added word"<<endl;
         Word lastWord = _words[_words.size() - 1];
-        _heading = lastWord.getBeginHeading(_heading);
-        
+        _heading = lastWord.getEndHeading(_heading);
         ofVec2f offset(_space * cos(ofDegToRad(_heading)), _space * sin(ofDegToRad(_heading)));
-        _center = lastWord.getFirstVertex() + offset;
-        
-        Word word = Word("", _center, _heading, _lineLength, _angleIncrement, _characters);
+        _center = lastWord.getLastVertex() + offset;
+
+        Word word = Word("", _center, _heading, _angleIncrement, _characters);
         _words.push_back(word);
 }
 
 void Animation::addCharacter(const char& character){
     
     if (_words.size() == 0) {
-        _words.push_back(Word(ofToString(character), ofVec2f(0, 0), 0, _lineLength, _angleIncrement, _characters));
+        _words.push_back(Word(ofToString(character), ofVec2f(0, 0), _heading, _angleIncrement, _characters));
     }
     
     _currentCharacter = character;
     _connectionPoint = _words[_words.size() - 1].getLastVertex();
-    _heading = _words[_words.size() - 1].getBeginHeading(_heading);
     _animating = true;
 }
 
@@ -84,7 +85,8 @@ void Animation::_step(){
 // returns true if currentPoint will reach or pass
 // targetPoint this frame
 bool Animation::_withinFinalFrameDistance() {
-    return abs(_targetAngle - _currentAngle) <= _speed;
+//    return abs(_targetAngle - _currentAngle) <= _speed;
+    return true;
 }
 
 ofVec2f Animation::_polarToCartesian(ofVec2f polar){

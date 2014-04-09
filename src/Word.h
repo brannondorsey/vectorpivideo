@@ -18,7 +18,6 @@ public:
     Word(const std::string& word,
          ofVec2f start,
          float rotation,
-         int lineLength,
          float angleIncrement,
          const std::string& characters);
     void draw();

@@ -5,18 +5,24 @@ void testApp::setup(){
     
     ofBackground(255);
     
-    ofBuffer buffer = ofBufferFromFile("texts/gatsby.txt");
+    ofBuffer buffer = ofBufferFromFile("texts/demo.txt");
     text = buffer.getText();
     
+        
     ofRectangle textBox(100, ofGetHeight() - 120, ofGetWidth() - 200, 50);
     textDisplay = TextDisplay(text, textBox);
+    
+    buffer = ofBufferFromFile("languages/english.txt");
+    std::string characters = buffer.getText();
+    float angleIncrement = float(360) / characters.length();
+    animation = Animation(angleIncrement, characters);
 }
 
 //--------------------------------------------------------------
 void testApp::update(){
     textDisplay.update();
     if (textDisplay.isFinished()) {
-        textDisplay.restart("I just restarted.");
+//        textDisplay.restart("I just restarted.");
     }
     animation.update();
 }
@@ -24,14 +30,13 @@ void testApp::update(){
 //--------------------------------------------------------------
 void testApp::draw(){
     
-    if (ofGetFrameNum() % 5 == 0 &&
+    if (ofGetFrameNum() % 20 == 0 &&
         animation.isReady() &&
         !textDisplay.isFinished()) {
         textDisplay.next();
         
         if (textDisplay.hasScreenText()) {
             char character = textDisplay.getLastScreenChar();
-            cout<<character<<endl;
             if (character == ' ') animation.addWord();
             else animation.addCharacter(character);
         }

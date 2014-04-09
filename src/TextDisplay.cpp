@@ -55,7 +55,8 @@ void TextDisplay::next() {
     std::string word = _words[_wordIndex];
     char character;
     
-    if (word == "") {
+    if ((word == "") &&
+        (_wordIndex < _words.size() - 1)) {
         _wordIndex++;
         word = _words[_wordIndex];
     }

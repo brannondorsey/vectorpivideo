@@ -38,9 +38,11 @@ protected:
     std::string _text;
     std::string _characters;
     std::vector<Word> _words;
+    ofVec2f _start;
     ofVec2f _center;
     ofVec2f _connectionPoint;
     ofVec2f _currentPoint;
+    ofVec2f _offset;
     
     void _step();
     bool _withinFinalFrameDistance();
