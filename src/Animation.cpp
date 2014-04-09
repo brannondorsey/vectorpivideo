@@ -8,13 +8,18 @@
 
 #include "Animation.h"
 
-Animation::Animation(const float& angleIncrement, const std::string& characters){
+Animation::Animation(const float& angleIncrement,
+                     const std::string& characters,
+                     const ofColor& highlightColor,
+                     const int& numWords){
     
+    _numWords = numWords;
     _angleIncrement = angleIncrement;
     _characters = characters;
-    _speed = 1;
     _animating = false;
     
+    _highlightColor = highlightColor;
+    _speed = 1;
     _heading = 0;
     _space = 10;
     _lineLength = 24;
@@ -26,13 +31,11 @@ void Animation::update(){
     
     if (_animating) {
         if (_withinFinalFrameDistance()) {
-            cout<<"yes"<<endl;
             _words[_words.size() - 1].addCharacter(_currentCharacter);
             _animating = false;
         } else {
             _animating = true;
             _step();
-            cout<<"no"<<endl;
         }
     }
 
@@ -41,12 +44,19 @@ void Animation::update(){
 
 void Animation::draw(){
     
+    ofSetColor(0);
     if (_words.size() > 0) {
         ofVec2f end(_words[_words.size() - 1].getLastVertex());
         ofTranslate(_start - end);
     }
     
     for (int i = 0; i < _words.size(); i++) {
+        
+        if (i == _words.size() - 1) {
+            ofSetColor(_highlightColor);
+        } else {
+            
+        }
         _words[i].draw();
     }
 }

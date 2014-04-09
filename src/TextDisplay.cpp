@@ -32,6 +32,17 @@ void TextDisplay::draw(){
 //    ofRect(_textBox);
 //    ofFill();
     
+    int padding = 10;
+    ofRectangle backgroundBox(_font.getStringBoundingBox(_screenText, _textBox.x, _textBox.y + _textBox.height/2 + _fontSize/2));
+    backgroundBox.setHeight(_textBounds.height);
+    backgroundBox.x -= padding;
+    backgroundBox.setWidth(backgroundBox.width + padding * 2);
+    backgroundBox.y -= padding;
+    backgroundBox.setHeight(backgroundBox.height + padding * 2);
+    ofSetColor(255);
+    ofFill();
+    ofRect(backgroundBox);
+    
     ofSetColor(0);
     _font.drawString(_screenText, _textBox.x, _textBox.y + _textBox.height/2 + _fontSize/2);
 }

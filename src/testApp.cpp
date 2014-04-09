@@ -4,8 +4,9 @@
 void testApp::setup(){
     
     ofBackground(255);
+    ofColor highlightColor(158, 25, 25);
     
-    ofBuffer buffer = ofBufferFromFile("texts/demo.txt");
+    ofBuffer buffer = ofBufferFromFile("texts/gatsby.txt");
     text = buffer.getText();
     
         
@@ -15,7 +16,8 @@ void testApp::setup(){
     buffer = ofBufferFromFile("languages/english.txt");
     std::string characters = buffer.getText();
     float angleIncrement = float(360) / characters.length();
-    animation = Animation(angleIncrement, characters);
+    // add 1) opacity over time and 2) colored word
+    animation = Animation(angleIncrement, characters, highlightColor, 255);
 }
 
 //--------------------------------------------------------------
@@ -30,7 +32,7 @@ void testApp::update(){
 //--------------------------------------------------------------
 void testApp::draw(){
     
-    if (ofGetFrameNum() % 20 == 0 &&
+    if (ofGetFrameNum() % 8 == 0 &&
         animation.isReady() &&
         !textDisplay.isFinished()) {
         textDisplay.next();

@@ -16,7 +16,10 @@ class Animation{
 public:
     
     Animation(){};
-    Animation(const float& angleIncrement, const std::string& characters);
+    Animation(const float& angleIncrement,
+              const std::string& characters,
+              const ofColor& highlightColor,
+              const int& numWords);
     
     void update();
     void draw();
@@ -29,6 +32,7 @@ protected:
     bool _animating;
     int _lineLength;
     int _space;
+    int _numWords;
     float _speed;
     float _angleIncrement;
     float _heading;
@@ -43,6 +47,7 @@ protected:
     ofVec2f _connectionPoint;
     ofVec2f _currentPoint;
     ofVec2f _offset;
+    ofColor _highlightColor;
     
     void _step();
     bool _withinFinalFrameDistance();
