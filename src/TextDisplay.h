@@ -15,7 +15,9 @@ class TextDisplay {
 public:
     
     TextDisplay(){};
-    TextDisplay(const std::string& text, const ofRectangle& bound);
+    TextDisplay(const std::string& text,
+                const ofRectangle& bound,
+                const ofColor& highlightColor);
     
     void update();
     void draw();
@@ -37,6 +39,7 @@ protected:
     std::vector<std::string> _words;
     std::string _renderedText;
     std::string _screenText;
+    ofColor _highlightColor;
     ofRectangle _textBox;
     ofRectangle _textBounds;
     ofTrueTypeFont _font;

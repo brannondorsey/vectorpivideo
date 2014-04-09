@@ -11,7 +11,7 @@ void testApp::setup(){
     
         
     ofRectangle textBox(100, ofGetHeight() - 120, ofGetWidth() - 200, 50);
-    textDisplay = TextDisplay(text, textBox);
+    textDisplay = TextDisplay(text, textBox, highlightColor);
     
     buffer = ofBufferFromFile("languages/english.txt");
     std::string characters = buffer.getText();

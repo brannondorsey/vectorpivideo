@@ -52,13 +52,9 @@ void Animation::draw(){
     
     for (int i = 0; i < _words.size(); i++) {
         
-        if (i == _words.size() - 1) {
-            ofSetColor(_highlightColor);
-        } else {
-            float c = ofMap(_words.size(), 1, _numWords, 0, 220);
-            ofSetColor(c);
-            cout<<c<<endl;
-        }
+        if (i == _words.size() - 1) ofSetColor(_highlightColor);
+        else ofSetColor(ofMap(_words.size(), 1, _numWords, 0, 220));
+        
         _words[i].draw();
     }
 }

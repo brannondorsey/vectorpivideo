@@ -8,8 +8,11 @@
 
 #include "TextDisplay.h"
 
-TextDisplay::TextDisplay(const std::string& text, const ofRectangle& bound){
-    
+TextDisplay::TextDisplay(const std::string& text,
+                         const ofRectangle& bound,
+                         const ofColor& highlightColor){
+
+    _highlightColor = highlightColor;
     _textBox = bound;
     _fontSize = 24;
     _font.loadFont("fonts/Arial.ttf", _fontSize);
@@ -26,25 +29,54 @@ void TextDisplay::update(){
 }
 
 void TextDisplay::draw(){
-    
+
 //    ofNoFill();
 //    ofSetColor(0);
 //    ofRect(_textBox);
 //    ofFill();
-    
+        
     int padding = 10;
-    ofRectangle backgroundBox(_font.getStringBoundingBox(_screenText, _textBox.x, _textBox.y + _textBox.height/2 + _fontSize/2));
+    float boxY = _textBox.y + _textBox.height/2 + _fontSize/2;
+    ofRectangle backgroundBox(_font.getStringBoundingBox(_screenText, _textBox.x, boxY));
     backgroundBox.setHeight(_textBounds.height);
     backgroundBox.x -= padding;
     backgroundBox.setWidth(backgroundBox.width + padding * 2);
     backgroundBox.y -= padding;
     backgroundBox.setHeight(backgroundBox.height + padding * 2);
+    
     ofSetColor(255);
     ofFill();
     ofRect(backgroundBox);
     
-    ofSetColor(0);
-    _font.drawString(_screenText, _textBox.x, _textBox.y + _textBox.height/2 + _fontSize/2);
+    int lastSpace = _screenText.find_last_of(' ');
+    
+    
+    std::string normalText;
+    std::string highlightedText;
+    
+    if (lastSpace != std::string::npos) {
+        normalText = _screenText.substr(0, lastSpace) + ' ';
+        highlightedText = _screenText.substr(lastSpace, _screenText.length());
+        
+        ofSetColor(0);
+        _font.drawString(normalText, _textBox.x, boxY);
+    
+    } else {
+        normalText = "";
+        highlightedText = _screenText;
+    }
+    
+    if ((lastSpace != std::string::npos) ||
+        (normalText == "")) {
+        
+        ofRectangle normalTextBounds = _font.getStringBoundingBox(normalText, _textBox.x, boxY);
+        float boxX = (normalText == "") ? _textBox.x : normalTextBounds.x + normalTextBounds.width;
+        ofSetColor(_highlightColor);
+        
+        _font.drawString(highlightedText, boxX, boxY);
+    }
+
+    
 }
 
 void TextDisplay::restart(const std::string& text){
