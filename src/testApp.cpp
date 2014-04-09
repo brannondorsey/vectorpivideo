@@ -17,7 +17,10 @@ void testApp::setup(){
     std::string characters = buffer.getText();
     float angleIncrement = float(360) / characters.length();
     // add 1) opacity over time and 2) colored word
-    animation = Animation(angleIncrement, characters, highlightColor, 255);
+    animation = Animation(angleIncrement,
+                          characters,
+                          highlightColor,
+                          ofSplitString(text, " ").size());
 }
 
 //--------------------------------------------------------------

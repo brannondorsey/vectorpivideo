@@ -55,7 +55,9 @@ void Animation::draw(){
         if (i == _words.size() - 1) {
             ofSetColor(_highlightColor);
         } else {
-            
+            float c = ofMap(_words.size(), 1, _numWords, 0, 220);
+            ofSetColor(c);
+            cout<<c<<endl;
         }
         _words[i].draw();
     }
@@ -63,7 +65,6 @@ void Animation::draw(){
 
 void Animation::addWord(){
     
-        cout<<"added word"<<endl;
         Word lastWord = _words[_words.size() - 1];
         _heading = lastWord.getEndHeading(_heading);
         ofVec2f offset(_space * cos(ofDegToRad(_heading)), _space * sin(ofDegToRad(_heading)));
