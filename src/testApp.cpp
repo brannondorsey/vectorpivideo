@@ -50,6 +50,16 @@ void testApp::draw(){
     animation.draw();
     ofPopMatrix();
     textDisplay.draw();
+    
+    ofSetColor(0);
+    ofDrawBitmapStringHighlight(ofToString(ofGetFrameRate(), 2)+" fps", 10, 15);
+    float seconds = ofGetElapsedTimef();
+    std::string measure("sec");
+    if (seconds > 60) {
+        measure = "min";
+        seconds /= 60;
+    }
+    ofDrawBitmapStringHighlight(ofToString(seconds, 2) + " " + measure, 10, 30);
 }
 
 //--------------------------------------------------------------
