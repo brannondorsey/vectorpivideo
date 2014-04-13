@@ -46,7 +46,7 @@ void TextDisplay::draw(){
 //    ofRect(_textBox);
 //    ofFill();
     
-    ofSetColor(240);
+    ofSetColor(255);
     ofFill();
     ofRect(_backgroundBox);
     

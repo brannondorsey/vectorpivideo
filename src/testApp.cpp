@@ -6,7 +6,7 @@ void testApp::setup(){
     ofBackground(255);
     ofColor highlightColor(158, 25, 25);
     
-    ofBuffer buffer = ofBufferFromFile("texts/demo.txt");
+    ofBuffer buffer = ofBufferFromFile("texts/gatsby.txt");
     std::string text = buffer.getText();
     _totalWords = ofSplitString(text, " ").size();
         
