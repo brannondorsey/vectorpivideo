@@ -1,4 +1,6 @@
 bin/data/images/*
+bin/data/frames/*
+bin/data/videos/*
 
 ###########################
 # ignore generated binaries

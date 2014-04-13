@@ -22,9 +22,11 @@ _angleIncrement(angleIncrement),
 _angleInDegrees(0),
 _polyline(ofPolyline()),
 _angleSum(rotation),
-_center(start)
+_center(start),
+_needsUpdate(true),
+_hasBox(false)
 {
-    
+
     for (int i = 0; i < _word.length(); i++) {
         
         int index = _characters.find(_word[i]);
@@ -63,6 +65,21 @@ void Word::addCharacter(const char& character){
         _center += _getCartesian(_angleSum);
         _polyline.addVertex(_center);
     }
+}
+
+void Word::assignBox() {
+    _box = getBoundingBox();
+    _hasBox = true;
+}
+
+bool Word::hasBox() {
+    return _hasBox;
+}
+
+bool Word::onScreen(ofVec2f offset) {
+//    if (!hasBox()) return true;
+    ofRectangle screen(-offset.x, -offset.y, ofGetWidth(), ofGetHeight());
+    return _box.intersects(screen);
 }
 
 float Word::getBeginHeading(const float& rotation){

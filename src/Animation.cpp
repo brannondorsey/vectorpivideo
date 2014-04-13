@@ -20,7 +20,7 @@ _highlightColor(highlightColor),
 _speed(1),
 _heading(0),
 _space(10),
-_start(ofVec2f(0, 0)),
+_start(ofVec2f(ofGetWidth()/2, ofGetHeight()/2)),
 _center(_start){}
 
 void Animation::update(){
@@ -34,23 +34,33 @@ void Animation::update(){
             _step();
         }
     }
+    
+    if (_words.size() > 0) {
+        _offset = (_start - _words[_words.size() - 1].getLastVertex());
+        if (_words.size() > 2) {
+            _words[_words.size() - 1].assignBox();
+        }
+    }
 }
 
 void Animation::draw(){
     
     ofSetColor(0);
-    if (_words.size() > 0) {
-        ofVec2f end(_words[_words.size() - 1].getLastVertex());
-        ofTranslate(_start - end);
-    }
+    ofPushMatrix();
     
+    if (_words.size() > 0) ofTranslate(_offset);
+    int numWordsOnScreen = 0;
     for (int i = 0; i < _words.size(); i++) {
         
         if (i == _words.size() - 1) ofSetColor(_highlightColor);
         else ofSetColor(ofMap(_words.size(), 1, _numWords, 0, 220));
         
-        _words[i].draw();
+        if (_words[i].onScreen(_offset)) {
+            _words[i].draw();
+            numWordsOnScreen++;
+        }
     }
+    ofPopMatrix();
 }
 
 void Animation::addWord(){
@@ -77,6 +87,10 @@ void Animation::addCharacter(const char& character){
 
 bool Animation::isReady(){
     return !_animating;
+}
+
+std::vector<Word> Animation::getWords() {
+    return _words;
 }
 
 void Animation::_step(){

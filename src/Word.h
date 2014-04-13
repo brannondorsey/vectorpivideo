@@ -20,8 +20,12 @@ public:
          float rotation,
          float angleIncrement,
          const std::string& characters);
+    
     void draw();
     void addCharacter(const char& character);
+    void assignBox();
+    bool hasBox();
+    bool onScreen(ofVec2f offset);
     float getBeginHeading(const float& rotation);
     float getEndHeading(const float& rotation);
     ofVec2f getFirstVertex();
@@ -31,6 +35,8 @@ public:
     
 protected:
     
+    bool _needsUpdate;
+    bool _hasBox;
     int _lineLength;
     int _lineWidth;
     float _circleWidth;
@@ -42,6 +48,7 @@ protected:
     std::vector<float> _angles;
     ofVec2f _center;
     ofPolyline _polyline;
+    ofRectangle _box;
     
     ofVec2f _getCartesian(const float& angle);
     

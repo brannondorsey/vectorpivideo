@@ -26,6 +26,7 @@ public:
     void addWord();
     void addCharacter(const char& character);
     bool isReady();
+    std::vector<Word> getWords();
     
 protected:
     
@@ -45,6 +46,7 @@ protected:
     ofVec2f _center;
     ofVec2f _connectionPoint;
     ofVec2f _offset;
+    ofVec2f _end;
     ofColor _highlightColor;
     
     void _step();

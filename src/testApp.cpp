@@ -8,6 +8,7 @@ void testApp::setup(){
     
     ofBuffer buffer = ofBufferFromFile("texts/gatsby.txt");
     std::string text = buffer.getText();
+    _totalWords = ofSplitString(text, " ").size();
         
     ofRectangle textBox(100, ofGetHeight() - 120, ofGetWidth() - 200, 50);
     textDisplay = TextDisplay(text, textBox, highlightColor);
@@ -18,14 +19,17 @@ void testApp::setup(){
     animation = Animation(angleIncrement,
                           characters,
                           highlightColor,
-                          ofSplitString(text, " ").size());
+                          _totalWords);
+    
+    ofDirectory dir("frames");
+    dir.remove(true);
 }
 
 //--------------------------------------------------------------
 void testApp::update(){
     textDisplay.update();
     if (textDisplay.isFinished()) {
-//        textDisplay.restart("I just restarted.");
+        ofExit();
     }
     animation.update();
 }
@@ -33,7 +37,7 @@ void testApp::update(){
 //--------------------------------------------------------------
 void testApp::draw(){
     
-    if (ofGetFrameNum() % 8 == 0 &&
+    if ( // ofGetFrameNum() % 8 == 0 &&
         animation.isReady() &&
         !textDisplay.isFinished()) {
         textDisplay.next();
@@ -45,12 +49,15 @@ void testApp::draw(){
         }
     }
     
-    ofPushMatrix();
-    ofTranslate(ofGetWidth()/2, ofGetHeight()/2);
     animation.draw();
-    ofPopMatrix();
     textDisplay.draw();
     
+    // ofSaveFrame();
+    std::ostringstream localOSS;
+    localOSS << "frame_" << setw(6) << setfill('0') << ofToString(ofGetFrameNum()) << ".png";
+    ofSaveScreen("frames/" + localOSS.str());
+    
+    // stats
     ofSetColor(0);
     ofDrawBitmapStringHighlight(ofToString(ofGetFrameRate(), 2)+" fps", 10, 15);
     float seconds = ofGetElapsedTimef();
@@ -60,6 +67,8 @@ void testApp::draw(){
         seconds /= 60;
     }
     ofDrawBitmapStringHighlight(ofToString(seconds, 2) + " " + measure, 10, 30);
+    float percent = (float(animation.getWords().size()) / float(_totalWords)) * 100;
+    ofDrawBitmapStringHighlight(ofToString(percent, 2) + "% complete", 10, 45);
 }
 
 //--------------------------------------------------------------

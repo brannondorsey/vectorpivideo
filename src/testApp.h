@@ -9,6 +9,7 @@ class testApp : public ofBaseApp{
 
 	public:
     
+        int _totalWords;
         ofRectangle textBox;
         TextDisplay textDisplay;
         Animation animation;
