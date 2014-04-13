@@ -25,6 +25,7 @@ public:
     void draw();
     void addWord();
     void addCharacter(const char& character);
+    void restart();
     bool isReady();
     std::vector<Word> getWords();
     

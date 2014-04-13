@@ -21,7 +21,7 @@ public:
     
     void update();
     void draw();
-    void restart(const std::string& text);
+    void restart();
     void next();
     bool isFinished();
     bool hasScreenText();

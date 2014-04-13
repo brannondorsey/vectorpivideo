@@ -25,9 +25,10 @@ _center(_start){}
 
 void Animation::update(){
     
+        
     if (_animating) {
         if (_withinFinalFrameDistance()) {
-            _words[_words.size() - 1].addCharacter(_currentCharacter);
+            if (_words.size() > 0) _words[_words.size() - 1].addCharacter(_currentCharacter);
             _animating = false;
         } else {
             _animating = true;
@@ -53,7 +54,7 @@ void Animation::draw(){
     for (int i = 0; i < _words.size(); i++) {
         
         if (i == _words.size() - 1) ofSetColor(_highlightColor);
-        else ofSetColor(ofMap(_words.size(), 1, _numWords, 0, 220));
+        else ofSetColor(ofMap(i, 1, _numWords, 0, 230));
         
         if (_words[i].onScreen(_offset)) {
             _words[i].draw();
@@ -83,6 +84,12 @@ void Animation::addCharacter(const char& character){
     _currentCharacter = character;
     _connectionPoint = _words[_words.size() - 1].getLastVertex();
     _animating = true;
+}
+
+void Animation::restart(){
+    _center = _start;
+    _words.clear();
+    _heading = 0;
 }
 
 bool Animation::isReady(){

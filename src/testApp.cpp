@@ -6,7 +6,7 @@ void testApp::setup(){
     ofBackground(255);
     ofColor highlightColor(158, 25, 25);
     
-    ofBuffer buffer = ofBufferFromFile("texts/gatsby.txt");
+    ofBuffer buffer = ofBufferFromFile("texts/demo.txt");
     std::string text = buffer.getText();
     _totalWords = ofSplitString(text, " ").size();
         
@@ -27,17 +27,20 @@ void testApp::setup(){
 
 //--------------------------------------------------------------
 void testApp::update(){
-    textDisplay.update();
+    
     if (textDisplay.isFinished()) {
-        ofExit();
+        textDisplay.restart();
+        animation.restart();
     }
+    
+    textDisplay.update();
     animation.update();
 }
 
 //--------------------------------------------------------------
 void testApp::draw(){
     
-    if ( // ofGetFrameNum() % 8 == 0 &&
+    if (ofGetFrameNum() % 8 == 0 &&
         animation.isReady() &&
         !textDisplay.isFinished()) {
         textDisplay.next();
@@ -52,10 +55,10 @@ void testApp::draw(){
     animation.draw();
     textDisplay.draw();
     
-    // ofSaveFrame();
-    std::ostringstream localOSS;
-    localOSS << "frame_" << setw(6) << setfill('0') << ofToString(ofGetFrameNum()) << ".png";
-    ofSaveScreen("frames/" + localOSS.str());
+//    // ofSaveFrame();
+//    std::ostringstream localOSS;
+//    localOSS << "frame_" << setw(6) << setfill('0') << ofToString(ofGetFrameNum()) << ".png";
+//    ofSaveScreen("frames/" + localOSS.str());
     
     // stats
     ofSetColor(0);

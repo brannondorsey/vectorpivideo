@@ -13,12 +13,13 @@ TextDisplay::TextDisplay(const std::string& text,
                          const ofColor& highlightColor):
     _highlightColor(highlightColor),
     _textBox(bound),
-    _fontSize(24)
+    _fontSize(24),
+    _text(text)
 {
     _boxY = _textBox.y + _textBox.height/2 + _fontSize/2;
     _font.loadFont("fonts/Arial.ttf", _fontSize);
     _font.setEncoding(OF_ENCODING_UTF8);
-    restart(text);
+    restart();
 }
 
 void TextDisplay::update(){
@@ -30,11 +31,11 @@ void TextDisplay::update(){
     
     int verticalPadding = 3;
     int horizontalPadding = 10;
-    ofRectangle screenTextBox = _font.getStringBoundingBox(_screenText, _textBox.x, _boxY);
+    ofRectangle screenTextBox = _font.getStringBoundingBox(_screenText + ' ', _textBox.x, _boxY);
     _backgroundBox = _textBox;
     _backgroundBox.y -= verticalPadding;
     _backgroundBox.x -= horizontalPadding;
-    _backgroundBox.setWidth(screenTextBox.width + horizontalPadding * 2);
+    _backgroundBox.setWidth(screenTextBox.width + horizontalPadding * 4);
     _backgroundBox.setHeight(_backgroundBox.height + verticalPadding * 2);
 }
 
@@ -45,7 +46,7 @@ void TextDisplay::draw(){
 //    ofRect(_textBox);
 //    ofFill();
     
-    ofSetColor(255);
+    ofSetColor(240);
     ofFill();
     ofRect(_backgroundBox);
     
@@ -70,25 +71,23 @@ void TextDisplay::draw(){
         
         ofRectangle normalTextBounds = _font.getStringBoundingBox(normalText, _textBox.x, _boxY);
         float boxX = max(_textBox.x, normalTextBounds.x + normalTextBounds.width);
-        ofSetColor(_highlightColor);
         
+        ofSetColor(_highlightColor);
         _font.drawString(highlightedText, boxX, _boxY);
     }
-
-    
 }
 
-void TextDisplay::restart(const std::string& text){
+void TextDisplay::restart(){
     
     _charIndex = 0;
     _wordIndex = 0;
     _textFinished = false;
-    _text = text;
     
     ofStringReplace(_text, "\n\n", " ");
     ofStringReplace(_text, "\n", " ");
     
     _words = ofSplitString(_text, " ");
+    _screenText = "";
 }
 
 // this needs to always return the last character that was added
