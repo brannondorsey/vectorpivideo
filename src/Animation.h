@@ -27,7 +27,7 @@ public:
     void addCharacter(const char& character);
     void restart();
     bool isReady();
-    std::vector<Word> getWords();
+    const std::vector<Word>& getWords() const;
     
 protected:
     

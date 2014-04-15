@@ -144,6 +144,6 @@ char TextDisplay::getLastScreenChar() {
     return _screenText[_screenText.length() - 1];
 }
 
-std::vector<std::string> TextDisplay::getWords() {
+const std::vector<std::string>& TextDisplay::getWords() const {
     return _words;
 }

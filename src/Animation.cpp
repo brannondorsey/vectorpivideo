@@ -96,7 +96,7 @@ bool Animation::isReady(){
     return !_animating;
 }
 
-std::vector<Word> Animation::getWords() {
+const std::vector<Word>& Animation::getWords() const {
     return _words;
 }
 
