@@ -26,7 +26,7 @@ public:
     bool isFinished();
     bool hasScreenText();
     char getLastScreenChar();
-    std::vector<std::string> getWords();
+    const std::vector<std::string>& getWords() const;
     
 protected:
     
