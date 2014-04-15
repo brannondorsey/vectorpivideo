@@ -8,7 +8,7 @@ void testApp::setup(){
     
     ofBuffer buffer = ofBufferFromFile("texts/one_flew_over.txt");
     std::string text = buffer.getText();
-    _totalWords = ofSplitString(text, " ").size();
+    totalWords = ofSplitString(text, " ").size();
         
     ofRectangle textBox(100, ofGetHeight() - 120, ofGetWidth() - 200, 50);
     textDisplay = TextDisplay(text, textBox, highlightColor);
@@ -19,7 +19,7 @@ void testApp::setup(){
     animation = Animation(angleIncrement,
                           characters,
                           highlightColor,
-                          _totalWords);
+                          totalWords);
     
     ofDirectory dir("frames");
     dir.remove(true);
@@ -40,8 +40,7 @@ void testApp::update(){
 //--------------------------------------------------------------
 void testApp::draw(){
     
-    if (ofGetFrameNum() % 8 == 0 &&
-        animation.isReady() &&
+    if (animation.isReady() &&
         !textDisplay.isFinished()) {
         textDisplay.next();
         
@@ -70,13 +69,21 @@ void testApp::draw(){
         seconds /= 60;
     }
     ofDrawBitmapStringHighlight(ofToString(seconds, 2) + " " + measure, 100, 80);
-    float percent = (float(animation.getWords().size()) / float(_totalWords)) * 100;
+    float percent = (float(animation.getWords().size()) / float(totalWords)) * 100;
     ofDrawBitmapStringHighlight(ofToString(percent, 2) + "% complete", 100, 95);
+}
+
+void testApp::toggleFrameRate() {
+    if (fullSpeed) ofSetFrameRate(6);
+    else ofSetFrameRate(60);
+    fullSpeed = !fullSpeed;
 }
 
 //--------------------------------------------------------------
 void testApp::keyPressed(int key){
-
+    if (key == ' ') {
+        toggleFrameRate();
+    }
 }
 
 //--------------------------------------------------------------

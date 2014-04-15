@@ -9,7 +9,8 @@ class testApp : public ofBaseApp{
 
 	public:
     
-        int _totalWords;
+        int totalWords;
+        bool fullSpeed;
         ofRectangle textBox;
         TextDisplay textDisplay;
         Animation animation;
@@ -17,6 +18,7 @@ class testApp : public ofBaseApp{
 		void setup();
 		void update();
 		void draw();
+        void toggleFrameRate();
     
 		void keyPressed(int key);
 		void keyReleased(int key);
