@@ -11,6 +11,8 @@ class testApp : public ofBaseApp{
     
         int totalWords;
         bool fullSpeed;
+        bool showStats;
+
         ofRectangle textBox;
         TextDisplay textDisplay;
         Animation animation;
@@ -29,5 +31,6 @@ class testApp : public ofBaseApp{
 		void windowResized(int w, int h);
 		void dragEvent(ofDragInfo dragInfo);
 		void gotMessage(ofMessage msg);
-		
+
+
 };

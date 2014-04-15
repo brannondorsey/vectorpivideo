@@ -5,7 +5,9 @@ void testApp::setup(){
     
     ofBackground(255);
     ofColor highlightColor(224, 11, 11); // 158, 25, 25
-    
+
+    showStats = false;
+
     ofBuffer buffer = ofBufferFromFile("texts/one_flew_over.txt");
     std::string text = buffer.getText();
     totalWords = ofSplitString(text, " ").size();
@@ -58,19 +60,23 @@ void testApp::draw(){
 //    std::ostringstream localOSS;
 //    localOSS << "frame_" << setw(6) << setfill('0') << ofToString(ofGetFrameNum()) << ".png";
 //    ofSaveScreen("frames/" + localOSS.str());
-    
-    // stats
-    ofSetColor(0);
-    ofDrawBitmapStringHighlight(ofToString(ofGetFrameRate(), 2)+" fps", 100, 65);
-    float seconds = ofGetElapsedTimef();
-    std::string measure("sec");
-    if (seconds > 60) {
-        measure = "min";
-        seconds /= 60;
+
+    if (showStats)
+    {
+        // stats
+        ofSetColor(0);
+        ofDrawBitmapStringHighlight(ofToString(ofGetFrameRate(), 2)+" fps", 100, 65);
+        float seconds = ofGetElapsedTimef();
+        std::string measure("sec");
+        if (seconds > 60) {
+            measure = "min";
+            seconds /= 60;
+        }
+        ofDrawBitmapStringHighlight(ofToString(seconds, 2) + " " + measure, 100, 80);
+        float percent = (float(animation.getWords().size()) / float(totalWords)) * 100;
+        ofDrawBitmapStringHighlight(ofToString(percent, 2) + "% complete", 100, 95);
+        ofDrawBitmapStringHighlight(ofToString(animation.getWords().size()) + "# words", 100, 95);
     }
-    ofDrawBitmapStringHighlight(ofToString(seconds, 2) + " " + measure, 100, 80);
-    float percent = (float(animation.getWords().size()) / float(totalWords)) * 100;
-    ofDrawBitmapStringHighlight(ofToString(percent, 2) + "% complete", 100, 95);
 }
 
 void testApp::toggleFrameRate() {
@@ -83,6 +89,10 @@ void testApp::toggleFrameRate() {
 void testApp::keyPressed(int key){
     if (key == ' ') {
         toggleFrameRate();
+    }
+    else if (key == 's')
+    {
+        showStats = !showStats;
     }
 }
 
