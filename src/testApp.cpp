@@ -4,7 +4,7 @@
 void testApp::setup(){
     
     ofBackground(255);
-    ofColor highlightColor(158, 25, 25);
+    ofColor highlightColor(224, 11, 11); // 158, 25, 25
     
     ofBuffer buffer = ofBufferFromFile("texts/one_flew_over.txt");
     std::string text = buffer.getText();
