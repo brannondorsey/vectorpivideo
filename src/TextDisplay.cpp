@@ -84,6 +84,7 @@ void TextDisplay::restart(){
     _textFinished = false;
     
     ofStringReplace(_text, "\n\n", " ");
+    ofStringReplace(_text, "\r\n", " ");
     ofStringReplace(_text, "\n", " ");
     
     _words = ofSplitString(_text, " ");
