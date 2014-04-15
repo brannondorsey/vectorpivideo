@@ -13,7 +13,7 @@ TextDisplay::TextDisplay(const std::string& text,
                          const ofColor& highlightColor):
     _highlightColor(highlightColor),
     _textBox(bound),
-    _fontSize(24),
+    _fontSize(18),
     _text(text)
 {
     _boxY = _textBox.y + _textBox.height/2 + _fontSize/2;

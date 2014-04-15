@@ -62,16 +62,16 @@ void testApp::draw(){
     
     // stats
     ofSetColor(0);
-    ofDrawBitmapStringHighlight(ofToString(ofGetFrameRate(), 2)+" fps", 100, 15);
+    ofDrawBitmapStringHighlight(ofToString(ofGetFrameRate(), 2)+" fps", 100, 65);
     float seconds = ofGetElapsedTimef();
     std::string measure("sec");
     if (seconds > 60) {
         measure = "min";
         seconds /= 60;
     }
-    ofDrawBitmapStringHighlight(ofToString(seconds, 2) + " " + measure, 100, 30);
+    ofDrawBitmapStringHighlight(ofToString(seconds, 2) + " " + measure, 100, 80);
     float percent = (float(animation.getWords().size()) / float(_totalWords)) * 100;
-    ofDrawBitmapStringHighlight(ofToString(percent, 2) + "% complete", 100, 45);
+    ofDrawBitmapStringHighlight(ofToString(percent, 2) + "% complete", 100, 95);
 }
 
 //--------------------------------------------------------------
