@@ -19,6 +19,7 @@ class testApp : public ofBaseApp{
 		void update();
 		void draw();
         void toggleFrameRate();
+        void restart();
     
 		void keyPressed(int key);
 		void keyReleased(int key);

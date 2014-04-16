@@ -29,8 +29,7 @@ void testApp::setup(){
 void testApp::update(){
     
     if (textDisplay.isFinished()) {
-        textDisplay.restart();
-        animation.restart();
+        restart();
     }
     
     textDisplay.update();
@@ -79,9 +78,19 @@ void testApp::toggleFrameRate() {
     fullSpeed = !fullSpeed;
 }
 
+void testApp::restart(){
+    textDisplay.restart();
+    animation.restart();
+}
+
 //--------------------------------------------------------------
 void testApp::keyPressed(int key){
+    
     if (key == ' ') {
+        restart();
+    }
+    
+    if (key == 'f') {
         toggleFrameRate();
     }
 }
