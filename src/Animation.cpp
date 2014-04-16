@@ -38,9 +38,6 @@ void Animation::update(){
     
     if (_words.size() > 0) {
         _offset = (_start - _words[_words.size() - 1].getLastVertex());
-        if (_words.size() > 2) {
-            _words[_words.size() - 1].assignBox();
-        }
     }
 }
 
@@ -66,7 +63,7 @@ void Animation::draw(){
 
 void Animation::addWord(){
     
-        Word lastWord = _words[_words.size() - 1];
+        const Word& lastWord = _words[_words.size() - 1];
         _heading = lastWord.getEndHeading(_heading);
         ofVec2f offset(_space * cos(ofDegToRad(_heading)), _space * sin(ofDegToRad(_heading)));
         _center = lastWord.getLastVertex() + offset;

@@ -9,7 +9,7 @@
 #include "Word.h"
 
 Word::Word(const std::string& word,
-           ofVec2f start,
+           const ofVec2f& start,
            float rotation,
            float angleIncrement,
            const std::string& characters):
@@ -23,8 +23,8 @@ _angleInDegrees(0),
 _polyline(ofPolyline()),
 _angleSum(rotation),
 _center(start),
-_needsUpdate(true),
-_hasBox(false)
+_isBBDirty(true),
+_BB(ofRectangle())
 {
 
     for (int i = 0; i < _word.length(); i++) {
@@ -43,13 +43,15 @@ _hasBox(false)
         _center += _getCartesian(_angleSum);
         _polyline.addVertex(_center);
     }
+
+    _isBBDirty = true;
 }
 
 void Word::draw(){
 
     ofSetLineWidth(_lineWidth);
     ofFill();
-    ofCircle(getFirstVertex(), _circleWidth / 2);
+    ofCircle(_polyline.getVertices().at(0), _circleWidth / 2);
     ofNoFill();
     _polyline.draw();
 }
@@ -64,30 +66,22 @@ void Word::addCharacter(const char& character){
         _angleSum += _angleInDegrees;
         _center += _getCartesian(_angleSum);
         _polyline.addVertex(_center);
+
+        _isBBDirty = true;
     }
 }
 
-void Word::assignBox() {
-    _box = getBoundingBox();
-    _hasBox = true;
-}
-
-bool Word::hasBox() {
-    return _hasBox;
-}
-
-bool Word::onScreen(ofVec2f offset) {
-//    if (!hasBox()) return true;
+bool Word::onScreen(const ofVec2f& offset) const {
     ofRectangle screen(-offset.x, -offset.y, ofGetWidth(), ofGetHeight());
-    return _box.intersects(screen);
+    return getBoundingBox().intersects(screen);
 }
 
-float Word::getBeginHeading(const float& rotation){
+float Word::getBeginHeading(const float& rotation) const {
     if (_angles.size() > 0) return _angles[0] + rotation;
     else return rotation;
 }
 
-float Word::getEndHeading(const float& rotation){
+float Word::getEndHeading(const float& rotation) const {
     
     float angleSum = rotation;
     for (int i = 0; i < _angles.size(); i++) {
@@ -96,16 +90,22 @@ float Word::getEndHeading(const float& rotation){
     return angleSum;
 }
 
-ofVec2f Word::getFirstVertex(){
+ofVec2f Word::getFirstVertex() const {
     return _polyline[0];
 }
 
-ofVec2f Word::getLastVertex(){
+ofVec2f Word::getLastVertex() const {
     return _polyline[_polyline.size() - 1];
 }
 
-ofRectangle Word::getBoundingBox(){
-    return _polyline.getBoundingBox();
+const ofRectangle& Word::getBoundingBox() const{
+    if (_isBBDirty)
+    {
+        _BB = _polyline.getBoundingBox();
+        _isBBDirty = false;
+    }
+
+    return _BB;
 }
 
 ofVec2f Word::_getCartesian(const float& angle) {

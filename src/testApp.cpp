@@ -2,7 +2,6 @@
 
 //--------------------------------------------------------------
 void testApp::setup(){
-    
     ofBackground(255);
     ofColor highlightColor(224, 11, 11); // 158, 25, 25
 

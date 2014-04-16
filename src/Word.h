@@ -16,27 +16,22 @@ public:
     ofPoint lastPoint;
     
     Word(const std::string& word,
-         ofVec2f start,
+         const ofVec2f& start,
          float rotation,
          float angleIncrement,
          const std::string& characters);
     
     void draw();
     void addCharacter(const char& character);
-    void assignBox();
-    bool hasBox();
-    bool onScreen(ofVec2f offset);
-    float getBeginHeading(const float& rotation);
-    float getEndHeading(const float& rotation);
-    ofVec2f getFirstVertex();
-    ofVec2f getLastVertex();
-    ofRectangle getBoundingBox();
-    
+    bool onScreen(const ofVec2f& offset) const;
+    float getBeginHeading(const float& rotation) const;
+    float getEndHeading(const float& rotation) const;
+    ofVec2f getFirstVertex() const;
+    ofVec2f getLastVertex() const;
+    const ofRectangle& getBoundingBox() const;
     
 protected:
     
-    bool _needsUpdate;
-    bool _hasBox;
     int _lineLength;
     int _lineWidth;
     float _circleWidth;
@@ -48,7 +43,9 @@ protected:
     std::vector<float> _angles;
     ofVec2f _center;
     ofPolyline _polyline;
-    ofRectangle _box;
+
+    mutable bool _isBBDirty;
+    mutable ofRectangle _BB;
     
     ofVec2f _getCartesian(const float& angle);
     
