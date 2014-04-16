@@ -11,6 +11,7 @@ class testApp : public ofBaseApp{
     
         int totalWords;
         bool fullSpeed;
+        bool showStats;
         ofRectangle textBox;
         TextDisplay textDisplay;
         Animation animation;
